@@ -22,6 +22,11 @@ function App(){
       //giving access token generated to the spotify api
       spotify.setAccessToken(_token);
       //communicating between react and spotify api
+        spotify.getMe().then((user)=>{
+          console.log("XXX",user);
+        }
+
+        );
 
 
 
