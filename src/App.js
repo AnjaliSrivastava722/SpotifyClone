@@ -8,6 +8,9 @@ import Player from './Player';
 //Global instance of Spotify Web Api
 const spotify=new SpotifyWebApi();
 
+//token -primary 
+
+
 function App(){
   const [token , setToken] = useState(null);
 
