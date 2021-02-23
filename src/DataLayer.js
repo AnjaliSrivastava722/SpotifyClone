@@ -12,3 +12,5 @@ export const DataLayer=({initialState, reducer,
 
 
 );
+
+export const useDataLayerValue =() => useContext(DataLayerContext); 
