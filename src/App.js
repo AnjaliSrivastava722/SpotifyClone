@@ -13,18 +13,21 @@ const spotify=new SpotifyWebApi();
 
 
 function App(){
-  const [token , setToken] = useState(null);
-  const [{}, dispatch] =useDataLayerValue();
+  
+  const [{user, token}, dispatch] =useDataLayerValue();//user-object??
 
   useEffect(() => {
      const hash = getTokenFromUrl();
      
      //Remove the acess token from URL
      window.location.hash = ""
-     const _token =  hash.access_token ;
+     const _token =  hash.access_token ; 
      if(_token)
      {
-      setToken(_token);
+        dispatch({
+          type: "SET_TOKEN",
+          token:_token,
+        })
 
       
       //giving access token generated to the spotify api
@@ -32,6 +35,13 @@ function App(){
       //communicating between react and spotify api
         spotify.getMe().then((user)=>{
           console.log("XXX",user);
+
+          dispatch(
+            {
+              type: "SET_USER",
+              user: user,
+            }
+          )
         }
 
         );
@@ -40,11 +50,14 @@ function App(){
 
      console.log('I HAVE A TOKEN>>>>>' , token);
   },[])
+
+  console.log(user);
+  console.log("the token",token);
   return (
     <div className="app">
       {
         token 
-        ?(<Player />)
+        ?(<Player spotify={spotify}/>)
         :( 
         <div className = "login">
         <Login />
